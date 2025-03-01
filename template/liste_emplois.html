@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Emplois du Temps</h2>
+    <a href="{% url 'generer_emploi' %}" class="btn btn-success">Générer l'Emploi du Temps</a>
+
+    <h3>Par Professeur</h3>
+    {% for prof in professeurs %}
+    <h4>{{ prof.nom }}</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Classe</th>
+                <th>Salle</th>
+                <th>Jour</th>
+                <th>Horaire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emploi in emplois %}
+            {% if emploi.professeur == prof %}
+            <tr>
+                <td>{{ emploi.classe }}</td>
+                <td>{{ emploi.salle }}</td>
+                <td>{{ emploi.jour }}</td>
+                <td>{{ emploi.heure_debut }} - {{ emploi.heure_fin }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+
+    <h3>Par Salle</h3>
+    {% for salle in salles %}
+    <h4>{{ salle }}</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Professeur</th>
+                <th>Classe</th>
+                <th>Jour</th>
+                <th>Horaire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emploi in emplois %}
+            {% if emploi.salle == salle %}
+            <tr>
+                <td>{{ emploi.professeur }}</td>
+                <td>{{ emploi.classe }}</td>
+                <td>{{ emploi.jour }}</td>
+                <td>{{ emploi.heure_debut }} - {{ emploi.heure_fin }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+
+    <h3>Par Classe</h3>
+    {% for classe in classes %}
+    <h4>{{ classe }}</h4>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Professeur</th>
+                <th>Salle</th>
+                <th>Jour</th>
+                <th>Horaire</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emploi in emplois %}
+            {% if emploi.classe == classe %}
+            <tr>
+                <td>{{ emploi.professeur }}</td>
+                <td>{{ emploi.salle }}</td>
+                <td>{{ emploi.jour }}</td>
+                <td>{{ emploi.heure_debut }} - {{ emploi.heure_fin }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endfor %}
+</div>
+{% endblock %}
